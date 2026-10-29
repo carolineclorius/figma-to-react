@@ -1,14 +1,29 @@
+/* The page: heading and pills centered both horizontally and vertically */
 .page {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  max-width: 48rem;
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
+  align-items: center; /* horizontal centering (the cross axis in a column) */
+  justify-content: center; /* vertical centering (the main axis in a column) */
+  gap: var(--paddings-large);
+  min-height: 100vh;
+  padding: var(--paddings-large) var(--paddings-small);
+  text-align: center;
+  background-color: var(--color-neutral-white);
 }
 
+/* Not part of the Figma frame – styled like H1 from the design */
+.heading {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-semi-bold);
+  color: var(--color-neutral-text);
+}
+
+/* Figma: "Frame 2" – auto layout (horizontal) -> flexbox in a row */
 .pills {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-wrap: wrap; /* the pills stack on narrow screens */
+  justify-content: center;
+  align-items: center;
+  gap: var(--gaps-small);
 }

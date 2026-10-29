@@ -1,11 +1,15 @@
 import styles from "./Pill.module.css";
 
 // Figma: the component set "Pill" with the variants Type and State.
-// Give it children and onClick (step 1.1), and turn Type into a prop (step 1.4).
-export default function Pill() {
+// The Type variant becomes the prop "type": "primary" or "secondary".
+// The State variant (Hover) is handled in CSS with :hover and :focus-visible.
+export default function Pill({ type = "primary", onClick, children }) {
+  // Combine the base class with the class for the type, e.g. "pill primary"
+  const className = `${styles.pill} ${styles[type]}`;
+
   return (
-    <button type="button" className={styles.pill}>
-      Pill
+    <button type="button" className={className} onClick={onClick}>
+      {children}
     </button>
   );
 }

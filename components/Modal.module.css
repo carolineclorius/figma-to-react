@@ -3,10 +3,104 @@
 /* The dialog itself */
 .modal {
   margin: auto; /* The reset in globals.css removes the centering of <dialog>, so add it back */
+  max-width: calc(100% - 2 * var(--paddings-small));
+  border: none;
+  border-radius: var(--border-radius-l);
+  background-color: var(--color-neutral-background);
+  color: var(--color-neutral-text);
 }
 
-/* Auto layout -> flexbox (step 1.3) */
+/* Auto layout (vertical) -> flexbox in a column (step 1.3) */
+/* The padding lives here, so a click on the padding does not count as a backdrop click */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gaps-small);
+  padding: var(--paddings-large) var(--paddings-small);
+  text-align: left;
+}
 
-/* Title and text (step 1.3) and the separator (step 1.4) */
+/* The separator (step 1.4): a short orange line above the title */
+.separator {
+  width: 24px;
+  height: 4px;
+  border: none;
+  border-radius: var(--border-radius-s);
+  background-color: var(--color-accent-primary-1);
+}
+
+/* Title = H1 and text = H2 from Figma (step 1.3) */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-semi-bold);
+  line-height: normal;
+}
+
+.text {
+  max-width: var(--size-modal-text-width);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-regular);
+  line-height: normal;
+}
 
 /* Smart Animate -> transition (extra 3) */
+
+/*
+ * How the animation works:
+ * 1. Closed state: invisible and slightly smaller (the styles on .modal below).
+ * 2. Open state ([open]): visible and full size.
+ * 3. @starting-style: where the animation starts the moment the dialog opens.
+ * "display" and "overlay" need allow-discrete, so the dialog stays visible
+ * while it animates out on close.
+ */
+.modal {
+  opacity: 0;
+  transform: scale(0.95) translateY(8px);
+  transition:
+    opacity var(--animation-duration) var(--animation-easing),
+    transform var(--animation-duration) var(--animation-easing),
+    display var(--animation-duration) allow-discrete,
+    overlay var(--animation-duration) allow-discrete;
+}
+
+.modal[open] {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+}
+
+/* The dark backdrop behind the modal fades in at the same time */
+.modal::backdrop {
+  background-color: rgb(0 0 0 / 0);
+  transition:
+    background-color var(--animation-duration) var(--animation-easing),
+    display var(--animation-duration) allow-discrete,
+    overlay var(--animation-duration) allow-discrete;
+}
+
+.modal[open]::backdrop {
+  background-color: rgb(0 0 0 / 0.4);
+}
+
+@starting-style {
+  .modal[open]::backdrop {
+    background-color: rgb(0 0 0 / 0);
+  }
+}
+
+/* Respect users who have turned off animations in their system settings */
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal::backdrop {
+    transition: none;
+  }
+}

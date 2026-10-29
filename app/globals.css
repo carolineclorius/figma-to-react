@@ -9,15 +9,43 @@
  */
 :root {
   /* Color */
+  --color-neutral-white: #ffffff;
+  --color-neutral-background: #fafafa;
+  --color-neutral-text: #1e2348;
+  --color-accent-primary-1: #ff791c;
+  --color-accent-seconday-1: #372a6f; /* "seconday" is spelled like this in Figma */
+  --color-accent-secondary-2: #c1a3ef;
+  --color-accent-btn-primary: #1e2348;
+  --color-accent-btn-secondary: #b7f7fb;
 
-  /* Typography – the font itself is loaded in app/layout.js */
-  --font-family-primary: var(--font-inter), sans-serif;
+  /* Typography – the fonts themselves are loaded in app/layout.js */
+  --font-family-primary: var(--font-montserrat), sans-serif;
+  --font-family-secondary: var(--font-poppins), sans-serif;
+  --font-size-h1: 14px;
+  --font-size-h2: 12px;
+  --font-weight-regular: 400;
+  --font-weight-semi-bold: 600;
 
-  /* Spacing: gaps and paddings */
+  /* Gaps */
+  --gaps-small: 8px;
+
+  /* Paddings */
+  --paddings-x-small: 16px;
+  --paddings-small: 24px;
+  --paddings-large: 32px;
 
   /* Sizes */
+  --btn-height-small: 32px;
+  --size-modal-text-width: 200px;
 
   /* Border radius */
+  --border-radius-s: 8px;
+  --border-radius-m: 16px;
+  --border-radius-l: 24px;
+
+  /* Animation – Smart Animate in Figma: easing and duration */
+  --animation-duration: 300ms;
+  --animation-easing: ease-out;
 }
 
 * {
@@ -28,7 +56,9 @@
 
 body {
   min-height: 100vh;
-  font-family: var(--font-family-primary);
-  line-height: 1.5;
+  font-family: var(--font-family-secondary);
+  line-height: normal;
+  color: var(--color-neutral-text);
+  background-color: var(--color-neutral-white);
   -webkit-font-smoothing: antialiased;
 }
